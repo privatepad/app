@@ -7,8 +7,8 @@ const menu: IMenuItem[] = [
     conditions: []
   },
   {
-    children: "My Pools",
-    to: "/me",
+    children: "Pools",
+    to: "/pools",
     conditions: []
   },
   {
@@ -17,8 +17,8 @@ const menu: IMenuItem[] = [
     conditions: []
   },
   {
-    children: "Pools",
-    to: "/pools",
+    children: "Admin",
+    to: "/admin",
     conditions: [
       {
         method: "hasRole",
@@ -30,7 +30,7 @@ const menu: IMenuItem[] = [
 
 function Menu() {
   return (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center gap-8" data-testid="nav">
       {menu.map(({ children, to, conditions }, key) => <MenuItem to={to} conditions={conditions} key={key}>{children}</MenuItem>)}
     </div>
   )

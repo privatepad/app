@@ -1,20 +1,23 @@
-import { Routes, Route } from 'react-router-dom';
-import './App.css';
-import Header from './components/header/Header';
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Layout from "./components/layout/Layout";
+import Create from "./components/pages/Create";
+import Home from "./components/pages/Home";
+import Admin from "./components/pages/Admin";
+import Pools from "./components/pages/Pools";
+
+
 
 function App() {
   return (
-    <div className="h-screen bg-gray-50">
-      <Header />
-      <div className="container mx-auto px-16">
-        <Routes>
-          <Route path="/" element={<>Home</>} />
-          <Route path="/pools" element={<>Pools</>} />
-          <Route path="/me" element={<>My Pools</>} />
-          <Route path="/create" element={<>Create Pool</>} />
-        </Routes>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/pools" element={<Pools />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/admin" element={<Admin />} />
+      </Route>
+    </Routes>
   );
 }
 
