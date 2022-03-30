@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Connect from "./Connect";
 
-const mockAccount = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+const mockAccount = "0x000000000000000000000000000000000000dead"
 
 jest.mock("@usedapp/core", () => {
   return ({

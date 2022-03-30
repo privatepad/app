@@ -5,6 +5,7 @@ import Create from "./components/pages/Create";
 import Home from "./components/pages/Home";
 import Admin from "./components/pages/Admin";
 import Pools from "./components/pages/Pools";
+import Pool from "./components/pages/Pool";
 
 
 
@@ -13,9 +14,12 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="/pools" element={<Pools />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="pools">
+          <Route index element={<Pools />} />
+          <Route path=":poolId" element={<Pool />} />
+        </Route>
+        <Route path="create" element={<Create />} />
+        <Route path="admin" element={<Admin />} />
       </Route>
     </Routes>
   );
