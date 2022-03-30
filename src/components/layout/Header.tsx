@@ -1,3 +1,4 @@
+import Connect from "../dapp/Connect";
 import Menu from "./Menu";
 
 function Header() {
@@ -6,6 +7,7 @@ function Header() {
       <div className="container mx-auto px-16">
         <div className="flex justify-between items-center">
           <Menu />
+          <Connect />
         </div>
       </div>
     </div>
