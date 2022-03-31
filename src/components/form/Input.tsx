@@ -1,5 +1,3 @@
-import { ReactChild } from "react";
-
 interface IInput {
   id: string;
   attributes: {};
@@ -10,7 +8,7 @@ function Input({ id, attributes }: IInput) {
     <input
       id={id}
       {...attributes}
-      className="px-4 py-2 bg-slate-100 rounded-lg w-full"
+      className="px-4 py-2 bg-slate-100 rounded-lg outline-0	w-full"
     />
   );
 }

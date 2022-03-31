@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useFactory from "../../hooks/useFactory";
 import useMethod from "../../hooks/useMethod";
+import Error from "./Error";
 import Input from "./Input";
 import Label from "./Label";
 
@@ -44,7 +45,8 @@ function Form() {
         <form className="flex flex-col gap-4" onSubmit={onSubmit}>
           <div className="flex flex-col gap-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" attributes={{...register("name")}} />
+            <Input id="name" attributes={{...register("name", { required: true })}} />
+            {errors.name?.type === 'required' && <Error message="Name is required."/>}
           </div>
 
           <div className="flex flex-col gap-2">

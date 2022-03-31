@@ -1,56 +1,79 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import { Config, DAppProvider, Hardhat } from "@usedapp/core";
 import Form from "./Form";
+import * as rrd from "react-router-dom";
 
-const config: Config = {
-  readOnlyChainId: Hardhat.chainId,
-  readOnlyUrls: {
-    [Hardhat.chainId]: process.env.REACT_APP_HARDHAT_RPC_ENDPOINT || "",
-  },
-};
+const contractAddress = "0x000000000000000000000000000000000000dead";
 
 function Wrapped() {
   return (
     <MemoryRouter>
-      {/* <DAppProvider config={config}> */}
-        <Form />
-      {/* </DAppProvider> */}
+      <Form />
     </MemoryRouter>
   );
 }
 
 jest.mock("@usedapp/core", () => {
-  return ({
+  return {
     ...jest.requireActual("@usedapp/core"),
     useContractFunction: () => {
-      const { useState } = require("react")
-      const [events, setEvents] = useState([])
-      return({
-        send: jest.fn(() => setEvents([
-          {
-            name: "ContractCreated",
-            args: {
-              contractAddress: "0x000000000000000000000000000000000000dead"
-            }
-          }
-        ])),
+      const { useState } = require("react");
+      const [events, setEvents] = useState([]);
+      return {
+        send: jest.fn(() =>
+          setEvents([
+            {
+              name: "ContractCreated",
+              args: {
+                contractAddress,
+              },
+            },
+          ])
+        ),
         events,
         status: {},
-      })
-    }
-  })
-})
+      };
+    },
+  };
+});
 
-test("submit", async () => {
-  render(<Wrapped />)
-  userEvent.click(screen.getByText(/Create My Pool/));
+// const mockFn = jest.fn()
 
-  await waitFor(() => {
-    expect(true).toBe(true)
-  })
-})
+// jest.mock("react-router-dom", () => {
+//   return ({
+//     ...jest.requireActual("react-router-dom"),
+//     useNavigate: () => mockFn()
+//   })
+// })
+const mockedUsedNavigate = jest.fn();
 
-// Mock useContractFunction.send
-// send should mock a ContractCreated event
+jest.mock("react-router-dom", () => ({
+  ...(jest.requireActual("react-router-dom") as any),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
+describe("form", () => {
+  it("errors", async () => {
+    render(<Wrapped />);
+    userEvent.click(screen.getByText(/Create My Pool/));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Name is required/)).toBeInTheDocument();
+    });
+  });
+
+  it("submits", async () => {
+
+    render(<Wrapped />);
+
+    const input = screen.getByLabelText("Name");
+    await userEvent.click(input);
+    await userEvent.keyboard("foo");
+    userEvent.click(screen.getByText(/Create My Pool/));
+
+    await waitFor(() => {
+      expect(mockedUsedNavigate).toHaveBeenCalledWith(`/pools/${contractAddress}`)
+    });
+  });
+});
