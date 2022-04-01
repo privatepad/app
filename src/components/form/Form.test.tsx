@@ -2,9 +2,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import Form from "./Form";
-import * as rrd from "react-router-dom";
 
-const contractAddress = "0x000000000000000000000000000000000000dead";
+const contractAddress = "0x123000000000000000000000000000000000dead";
 
 function Wrapped() {
   return (
@@ -35,17 +34,10 @@ jest.mock("@usedapp/core", () => {
         status: {},
       };
     },
+    useCall: jest.fn()
   };
 });
 
-// const mockFn = jest.fn()
-
-// jest.mock("react-router-dom", () => {
-//   return ({
-//     ...jest.requireActual("react-router-dom"),
-//     useNavigate: () => mockFn()
-//   })
-// })
 const mockedUsedNavigate = jest.fn();
 
 jest.mock("react-router-dom", () => ({

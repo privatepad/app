@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useFactory from "../../hooks/useFactory";
-import useMethod from "../../hooks/useMethod";
 import Error from "./Error";
 import Input from "./Input";
 import Label from "./Label";
@@ -13,13 +12,9 @@ function Form() {
 
   const navigate = useNavigate()
 
-  const factory = useFactory()
+  const { fee, createInstance } = useFactory()
 
-  const { state, events, send } = useContractFunction(factory, "createInstance", {
-    transactionName: "Create Instance",
-  });
-
-  const fee: ethers.BigNumberish = useMethod(factory, "fee", []);
+  const { state, events, send } = createInstance
   
   const { register, handleSubmit, formState: { errors } } = useForm();
 

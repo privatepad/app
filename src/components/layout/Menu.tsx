@@ -17,7 +17,7 @@ const menu: IMenuItem[] = [
     conditions: []
   },
   {
-    children: "Admin",
+    children: "All Pools",
     to: "/admin",
     conditions: [
       {
