@@ -9,11 +9,11 @@ function Pools() {
     <div>
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="py-8 text-2xl font-semibold text-slate-900">Pools</h1>
+          <h1 className="py-8 text-2xl font-semibold text-slate-900">My Pools</h1>
         </div>
       </div>
       <div className="bg-white rounded-xl border p-8">
-        <PoolList addressList={getMemberInstances} />
+        <PoolList addressList={getMemberInstances} adminView={false} />
       </div>
     </div>
   )

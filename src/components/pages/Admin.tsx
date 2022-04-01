@@ -28,7 +28,7 @@ function Admin() {
         <FeeForm />
       </div>
       <div className="bg-white rounded-xl border p-8">
-        <PoolList addressList={getInstances} />
+        <PoolList addressList={getInstances} adminView={true} />
       </div>
     </div>
   );

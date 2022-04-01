@@ -8,11 +8,25 @@ const arr = [
   "0x789000000000000000000000000000000000dead",
 ]
 
-test("PoolList", () => {
-  render(<PoolList addressList={arr}/>)
+describe("PoolList", () => {
 
-  expect(screen.getByText(/0x0000.../)).toBeInTheDocument()
-  expect(screen.getByText(/0x1230.../)).toBeInTheDocument()
-  expect(screen.getByText(/0x4560.../)).toBeInTheDocument()
-  expect(screen.getByText(/0x7890.../)).toBeInTheDocument()
+  test("basic", () => {
+    render(<PoolList addressList={arr} adminView={false} />)
+
+    expect(screen.getByText(/0x0000/)).toBeInTheDocument()
+    expect(screen.getByText(/0x1230/)).toBeInTheDocument()
+    expect(screen.getByText(/0x4560/)).toBeInTheDocument()
+    expect(screen.getByText(/0x7890/)).toBeInTheDocument()
+    expect(screen.queryByText(/Owner/)).toBeNull()
+  })
+
+  test("admin", () => {
+    render(<PoolList addressList={arr} adminView={true} />)
+
+    expect(screen.getByText(/0x0000/)).toBeInTheDocument()
+    expect(screen.getByText(/0x1230/)).toBeInTheDocument()
+    expect(screen.getByText(/0x4560/)).toBeInTheDocument()
+    expect(screen.getByText(/0x7890/)).toBeInTheDocument()
+    expect(screen.getByText(/Owner/)).toBeInTheDocument()
+  })
 })

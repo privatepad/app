@@ -25,6 +25,8 @@ function useFactory() {
   const getInstances: string[] = useMethod(factory, "getInstances", [])
   const getMemberInstances: string[] = useMethod(factory, "getMemberInstances", [account])
 
+  const isAdmin = useMethod(factory, "hasRole", [DEFAULT_ADMIN_ROLE, account])
+
   return {
     factory,
     DEFAULT_ADMIN_ROLE,
@@ -34,6 +36,7 @@ function useFactory() {
     instanceCount,
     getInstances,
     getMemberInstances,
+    isAdmin
   }
 }
 

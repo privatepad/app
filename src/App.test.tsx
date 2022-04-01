@@ -28,8 +28,8 @@ test("full app rendering/navigating", async () => {
   expect(within(outlet).getByText(/Home/)).toBeInTheDocument();
 
   const nav = screen.getByTestId("nav");
-  await userEvent.click(within(nav).getByText("Pools"));
-  expect(within(outlet).getByText(/Pools/)).toBeInTheDocument();
+  await userEvent.click(within(nav).getByText(/My Pools/));
+  expect(within(outlet).getByText(/My Pools/)).toBeInTheDocument();
 
   await userEvent.click(within(nav).getByText(/Create Pool/));
   expect(within(outlet).getByText(/Create Pool/)).toBeInTheDocument();

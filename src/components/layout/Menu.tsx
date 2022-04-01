@@ -7,7 +7,7 @@ const menu: IMenuItem[] = [
     conditions: []
   },
   {
-    children: "Pools",
+    children: "My Pools",
     to: "/pools",
     conditions: []
   },
